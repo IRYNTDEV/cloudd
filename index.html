@@ -622,13 +622,6 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
         <div class="stars">DJS<b>★</b>LIGHTS<b>★</b>ALL NIGHT</div>
       </div>
 
-      <div class="count emboss" id="count" role="timer" aria-label="Countdown to the first edition">
-        <div><b id="c-d">00</b><span class="mono">Days</span></div><span class="sep" aria-hidden="true">:</span>
-        <div><b id="c-h">00</b><span class="mono">Hrs</span></div><span class="sep" aria-hidden="true">:</span>
-        <div><b id="c-m">00</b><span class="mono">Min</span></div><span class="sep" aria-hidden="true">:</span>
-        <div><b id="c-s">00</b><span class="mono">Sec</span></div>
-      </div>
-
       <div class="cta-row">
         <a class="press" href="#list">JOIN THE CLOUD LIST <span class="arrow" aria-hidden="true">→</span></a>
       </div>
@@ -810,20 +803,6 @@ document.getElementById("ch-ig-h").textContent = CONFIG.instagramHandle;
     else { el.classList.add("soon"); el.removeAttribute("target"); el.querySelector(".cta").textContent = soon; }
   });
 if (CONFIG.whatsappCommunity){ const d = document.getElementById("dock-wa"); d.href = CONFIG.whatsappCommunity; d.target = "_blank"; d.rel = "noopener"; }
-
-/* countdown to the first edition */
-(function countdown(){
-  const end = Date.parse(CONFIG.eventDate), el = id => document.getElementById(id);
-  const pad = n => String(Math.max(0, n)).padStart(2, "0");
-  function tick(){
-    let t = Math.max(0, Math.floor((end - Date.now()) / 1000));
-    el("c-d").textContent = pad(Math.floor(t / 86400)); t %= 86400;
-    el("c-h").textContent = pad(Math.floor(t / 3600)); t %= 3600;
-    el("c-m").textContent = pad(Math.floor(t / 60));
-    el("c-s").textContent = pad(t % 60);
-  }
-  tick(); setInterval(tick, 1000);
-})();
 
 /* dock appears once the hero button scrolls away, hides while the form is on screen */
 (function dock(){
