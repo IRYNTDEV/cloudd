@@ -10,6 +10,17 @@
 <meta name="description" content="CLOUDD — a European house and Afro house rave in Lagos this Detty December. Join the cloud list to hear first when tickets go live.">
 <meta property="og:title" content="CLOUDD — Get on the list">
 <meta property="og:description" content="A European house and Afro house rave in Lagos. Join the cloud list to hear first when tickets go live.">
+<meta property="og:image" content="og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#071224">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;500&family=Sacramento&display=swap">
@@ -18,8 +29,9 @@
    The page is a sheet of foil reflecting a Lagos December sky; the cursor is the sun. */
 :root{
   color-scheme: light;
-  --sky: #7cc4f2;        /* Lagos December sky */
-  --sky-deep: #2f6f9e;
+  --sky: #4fb3ff;        /* electric-blue highlight, Night */
+  --sky-deep: #1b4b8f;
+  --night: #071224;      /* midnight navy */
   --foil: #c9d2da;       /* silver foil, blue-biased */
   --ink: #0c1a28;        /* deep ink for the low edge of embossing */
   --raised: #f2f8fd;     /* raised silver lettering */
@@ -44,9 +56,9 @@
 
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-html{background:#274a6e}
+html{background:var(--night)}
 body{
-  background:#274a6e; color:var(--raised);
+  background:var(--night); color:var(--raised);
   font-family:var(--f-display); font-variation-settings:"wdth" 100;
   min-height:100%; overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
@@ -94,7 +106,14 @@ body{
 
 /* ---------- hero ---------- */
 .hero{padding-block:clamp(28px,6vh,72px) clamp(40px,8vh,96px)}
-.logo-cell{grid-column:2 / span 10;perspective:1200px;display:flex;justify-content:center}
+.logo-cell{grid-column:2 / span 10;perspective:1200px;display:flex;justify-content:center;position:relative}
+/* the beat: a soft electric-blue light behind the logo, swelling on every kick at 122 BPM (60/122 ≈ .492s) */
+.beat-light{position:absolute;top:50%;left:50%;width:min(70%,620px);aspect-ratio:1;border-radius:50%;
+  transform:translate(-50%,-50%);pointer-events:none;z-index:-1;
+  background:radial-gradient(circle,rgba(79,179,255,.55) 0%,rgba(79,179,255,.22) 40%,transparent 72%);
+  filter:blur(6px);animation:beat .4918s infinite cubic-bezier(.15,.8,.3,1)}
+@keyframes beat{0%{opacity:.35;transform:translate(-50%,-50%) scale(.88)}10%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}45%{opacity:.5;transform:translate(-50%,-50%) scale(.94)}100%{opacity:.35;transform:translate(-50%,-50%) scale(.88)}}
+@media (prefers-reduced-motion:reduce){.beat-light{animation:none;opacity:.5}}
 .logo{position:relative;width:min(100%,1040px);aspect-ratio:1400/639;transform-style:preserve-3d;
   will-change:transform;filter:drop-shadow(0 30px 40px rgba(8,30,60,.32)) drop-shadow(0 4px 6px rgba(8,22,40,.35));
   }
@@ -107,7 +126,10 @@ body{
 .logo .glint{background:radial-gradient(circle at var(--gx,30%) var(--gy,25%),rgba(255,255,255,.95) 0,rgba(255,255,255,.35) 9%,transparent 22%);mix-blend-mode:screen}
 
 .card-line{grid-column:3 / span 8;display:flex;align-items:center;gap:18px;justify-content:center;margin-top:clamp(20px,4vh,40px)}
-.card-line hr{flex:0 1 120px;border:0;height:2px;background:var(--raised);box-shadow:0 1px 0 rgba(8,22,40,.45),0 -1px 0 rgba(255,255,255,.6)}
+.card-line hr{flex:0 1 120px;border:0;height:2px;background:var(--raised);box-shadow:0 1px 0 rgba(8,22,40,.45),0 -1px 0 rgba(255,255,255,.6);
+  transform-origin:center;animation:dash-beat .4918s infinite cubic-bezier(.15,.8,.3,1)}
+@keyframes dash-beat{0%{transform:scaleX(1)}10%{transform:scaleX(1.09)}45%{transform:scaleX(1.02)}100%{transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){.card-line hr{animation:none}}
 .card-line .the{font-weight:800;font-size:15px;letter-spacing:.32em;font-variation-settings:"wdth" 125;padding-left:.32em}
 
 .facts{grid-column:2 / span 10;text-align:center;display:grid;gap:clamp(14px,2.6vh,26px);margin-top:clamp(18px,3vh,30px)}
@@ -603,6 +625,7 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
   <main>
     <div class="grid hero">
       <div class="logo-cell">
+        <div class="beat-light" aria-hidden="true"></div>
         <div class="logo" id="logo">
           <img src="cloudd-logo.webp" alt="CLOUDD" width="1400" height="639">
           <div class="tint"></div>
@@ -884,7 +907,7 @@ const ripples = [];                                    // {x,y,t}
 (function chrome(){
   const c = document.getElementById("chrome");
   const gl = c.getContext("webgl", { antialias:false, premultipliedAlpha:false });
-  if (!gl){ c.style.background = "linear-gradient(160deg,#dfe9f1,#8fb9d8 45%,#5a6f80 70%,#c9d7e2)"; return; }
+  if (!gl){ c.style.background = "linear-gradient(160deg,#132d55,#0b1a30 45%,#061020 70%,#1c3a63)"; return; }
 
   const vs = `attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
   const fs = `
@@ -912,8 +935,8 @@ const ripples = [];                                    // {x,y,t}
   }
   vec3 env(vec3 r){
     float y=r.y, x=r.x;
-    vec3 skyTop=vec3(.82,.92,.99), sky=vec3(.49,.77,.95), deep=vec3(.18,.42,.62);
-    vec3 grey=vec3(.42,.46,.50), dark=vec3(.10,.13,.17), white=vec3(.97,.98,1.);
+    vec3 skyTop=vec3(.16,.27,.46), sky=vec3(.07,.19,.40), deep=vec3(.02,.06,.16);
+    vec3 grey=vec3(.09,.13,.21), dark=vec3(.015,.03,.08), white=vec3(.55,.76,1.);
     vec3 c=mix(deep,sky,smoothstep(-.6,.1,y));
     c=mix(c,skyTop,smoothstep(.15,.7,y));
     c=mix(c,dark,smoothstep(.06,.0,abs(y+.18))*.85);
@@ -938,12 +961,12 @@ const ripples = [];                                    // {x,y,t}
     vec2 s=S*vec2(R.x/R.y,1.);
     vec3 L=normalize(vec3((s.x-p.x)*1.2,(p.y-s.y)*-1.2,.9));
     float spec=pow(max(dot(r,L),0.),60.);
-    col+=vec3(1.,.98,.94)*spec*.9;
-    col+=vec3(.55,.78,1.)*exp(-length(p-s)*2.2)*.10;
-    col=mix(col,vec3(.11,.25,.43),.56); col+=vec3(1.)*spec*.3;                                  /* harder metal contrast */
+    col+=vec3(.6,.85,1.)*spec*.9;
+    col+=vec3(.35,.65,1.)*exp(-length(p-s)*2.2)*.16;
+    col=mix(col,vec3(.02,.05,.14),.6); col+=vec3(.5,.75,1.)*spec*.3;                              /* harder metal contrast, night */
     float lum=dot(col,vec3(.3,.6,.1));
     col+=(ga*.03+gc*.018)*(.45+lum);                        /* grain sparkles in the highlights */
-    col=mix(vec3(.93,.96,.99),col,I);
+    col=mix(vec3(.04,.08,.16),col,I);
     float vig=smoothstep(1.4,.3,length(uv-.5));
     col*=mix(.80,1.,vig);
     gl_FragColor=vec4(col,1.);
