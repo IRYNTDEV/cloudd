@@ -133,6 +133,15 @@ body{
 .facts .stars b{font-weight:600;display:inline-block;transform:translateY(-.06em);margin:0 .5em;font-size:.8em}
 
 .cta-row{grid-column:1 / -1;display:flex;justify-content:center;margin-top:clamp(28px,5vh,56px)}
+
+/* ---------- teaser banner ---------- */
+.teaser-banner{grid-column:1 / -1;position:relative;border-radius:18px;overflow:hidden;aspect-ratio:21/9;
+  box-shadow:inset 0 0 0 1px rgba(242,248,253,.14);background:#0b1a30}
+.teaser-banner video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.teaser-fade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,18,36,.88) 0%,rgba(7,18,36,.15) 45%,rgba(7,18,36,.25) 100%)}
+.teaser-cap{position:absolute;left:clamp(18px,3vw,32px);bottom:clamp(16px,2.6vw,26px);right:clamp(18px,3vw,32px);
+  color:var(--raised);font-size:clamp(11px,1.3vw,13px);letter-spacing:.12em;margin:0}
+@media (max-width:900px){.teaser-banner{aspect-ratio:16/9}}
 .press{
   --d:0;
   appearance:none;border:0;cursor:pointer;text-decoration:none;
@@ -667,6 +676,19 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
         <a class="press" href="#list">JOIN THE CLOUD LIST <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
+
+    <section style="padding-block:0 clamp(40px,8vh,88px)">
+      <div class="grid">
+        <div class="teaser-banner" id="teaser-banner">
+          <video id="teaser-vid" muted loop playsinline preload="none" poster="teaser-poster.jpg">
+            <source data-src="teaser.webm" type="video/webm">
+            <source data-src="teaser.mp4" type="video/mp4">
+          </video>
+          <div class="teaser-fade"></div>
+          <p class="teaser-cap mono emboss">Teaser: The Intro</p>
+        </div>
+      </div>
+    </section>
 
     <section aria-labelledby="how-h" style="padding-top:0">
       <div class="grid">
@@ -1245,6 +1267,22 @@ form.addEventListener("submit", async (e) => {
     msg.textContent = "Couldn't save. Check your connection and try again.";
   } finally { btn.disabled = false; if (form.hidden) msg.textContent = ""; }
 });
+
+/* teaser video: only loads once it's about to be seen */
+(function(){
+  const vid = document.getElementById("teaser-vid");
+  if (!vid) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      vid.querySelectorAll("source").forEach(s => s.src = s.dataset.src);
+      vid.load();
+      vid.play().catch(()=>{});
+      io.disconnect();
+    });
+  }, { rootMargin: "200px" });
+  io.observe(document.getElementById("teaser-banner"));
+})();
 </script>
 
 </body></html>
