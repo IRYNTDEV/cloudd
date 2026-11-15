@@ -135,13 +135,12 @@ body{
 .cta-row{grid-column:1 / -1;display:flex;justify-content:center;margin-top:clamp(28px,5vh,56px)}
 
 /* ---------- teaser banner ---------- */
-.teaser-banner{grid-column:1 / -1;position:relative;border-radius:18px;overflow:hidden;aspect-ratio:21/9;
+.teaser-banner{grid-column:1 / -1;position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/9;
   box-shadow:inset 0 0 0 1px rgba(242,248,253,.14);background:#0b1a30}
 .teaser-banner video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .teaser-fade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,18,36,.88) 0%,rgba(7,18,36,.15) 45%,rgba(7,18,36,.25) 100%)}
 .teaser-cap{position:absolute;left:clamp(18px,3vw,32px);bottom:clamp(16px,2.6vw,26px);right:clamp(18px,3vw,32px);
   color:var(--raised);font-size:clamp(11px,1.3vw,13px);letter-spacing:.12em;margin:0}
-@media (max-width:900px){.teaser-banner{aspect-ratio:16/9}}
 .press{
   --d:0;
   appearance:none;border:0;cursor:pointer;text-decoration:none;
@@ -614,8 +613,9 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
   background:rgba(4,10,22,.66);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
   box-shadow:inset 0 0 0 1px rgba(242,248,253,.14);transition:box-shadow .3s ease,transform .35s cubic-bezier(.2,.8,.2,1)}
 .chan:hover{transform:translateY(-4px);box-shadow:inset 0 0 0 1px rgba(242,248,253,.4)}
-.chan.live{box-shadow:inset 0 0 0 1px var(--sky)}
-.chan.live:hover{box-shadow:inset 0 0 0 1.5px var(--sky)}
+.chan.live::after{content:"";position:absolute;inset:0;z-index:1;border-radius:inherit;pointer-events:none;
+  box-shadow:inset 0 0 0 1px var(--sky);transition:box-shadow .3s ease}
+.chan.live:hover::after{box-shadow:inset 0 0 0 1.5px var(--sky)}
 .chan:focus-visible{outline:2px solid var(--sky);outline-offset:4px}
 .chan .media{position:relative;display:block;aspect-ratio:3/2;overflow:hidden;border-bottom:1px solid rgba(242,248,253,.14)}
 .chan .media img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.02);transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
