@@ -598,6 +598,34 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
 .chan.ig:hover .ig-grid i{transform:scale(1.03)}
 .chan.ig .ig-grid i{transition:transform .4s cubic-bezier(.2,.8,.2,1)}
 @media (max-width:900px){.chan.ig .ig-grid .t2 span{font-size:10px}}
+
+/* ===== socials: one card system, CLOUDD's chrome as the imagery ===== */
+.channels{grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+.chan{padding:0;gap:0;border-radius:3px;overflow:hidden;display:flex;flex-direction:column;color:var(--raised);text-shadow:none;
+  background:rgba(4,10,22,.66);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  box-shadow:inset 0 0 0 1px rgba(242,248,253,.14);transition:box-shadow .3s ease,transform .35s cubic-bezier(.2,.8,.2,1)}
+.chan:hover{transform:translateY(-4px);box-shadow:inset 0 0 0 1px rgba(242,248,253,.4)}
+.chan.live{box-shadow:inset 0 0 0 1px var(--sky)}
+.chan.live:hover{box-shadow:inset 0 0 0 1.5px var(--sky)}
+.chan:focus-visible{outline:2px solid var(--sky);outline-offset:4px}
+.chan .media{position:relative;display:block;aspect-ratio:3/2;overflow:hidden;border-bottom:1px solid rgba(242,248,253,.14)}
+.chan .media img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.02);transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.chan:hover .media img{transform:scale(1.08)}
+.chan .pill{position:absolute;top:14px;right:14px;display:inline-flex;align-items:center;gap:9px;padding:10px 16px;border-radius:999px;white-space:nowrap;
+  font-family:var(--f-mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--raised);
+  background:rgba(4,10,22,.74);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:inset 0 0 0 1px rgba(242,248,253,.2)}
+.chan .pill svg{width:16px;height:16px;flex:none}
+.chan .body{display:flex;flex-direction:column;gap:16px;padding:clamp(22px,2.4vw,32px);flex:1;container-type:inline-size}
+.chan h4{margin:0;font-family:"Archivo","Arial Narrow",sans-serif;font-weight:900;font-variation-settings:"wdth" 62;text-transform:uppercase;
+  font-size:clamp(22px,11.6cqi,54px);line-height:.88;letter-spacing:-.005em;white-space:nowrap;overflow-wrap:normal}
+.chan p{margin:0;font-family:var(--f-mono);font-size:13.5px;line-height:1.75;opacity:.82;max-width:none}
+.chan .cta{margin-top:auto;padding-top:18px;border-top:1px solid rgba(242,248,253,.18);display:flex;align-items:center;gap:12px;
+  font-family:var(--f-mono);font-weight:500;font-size:12px;letter-spacing:.16em;text-transform:uppercase;opacity:1}
+.chan .cta i{font-style:normal;transition:transform .3s}
+.chan:hover .cta i{transform:translateX(5px)}
+.chan.live .cta{color:var(--sky)}
+.chan.soon .cta{opacity:.5}
+@media (max-width:900px){.channels{grid-template-columns:1fr}.chan .media{aspect-ratio:16/9}}
 </style>
 
 <script>if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("intro");</script>
@@ -678,34 +706,29 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
         <div class="join-head emboss"><h2 id="join-h">Stay in the<br>cloud.</h2></div>
         <p class="join-side emboss">The location pin, set times and the first word on tickets go out here before anywhere else.</p>
         <div class="channels">
-          <a class="chan wa" id="ch-wa" href="#join" target="_blank" rel="noopener">
-            <span class="mono tag">WhatsApp community</span>
-            <h4>CLOUDD Lagos</h4>
-            <div class="chat" aria-hidden="true">
-              <p class="in">Location pin drops here first.</p>
-              <p class="in">Tickets are live. Cloud list, go.</p>
-              <p class="out">On my way</p>
-            </div>
-            <span class="mono cta">Join the group →</span>
+          <a class="chan" id="ch-wa" href="#join" target="_blank" rel="noopener">
+            <span class="media"><img src="img/macro-c.jpg" alt="" loading="lazy" width="900" height="600"><span class="pill"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.5 2.5 0 0 0 1.7-1.2 2 2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3Z"/></svg>WhatsApp community</span></span>
+            <span class="body">
+              <h4>CLOUDD Lagos</h4>
+              <p>The location pin, ticket alerts and day-of updates. The list hears it here first.</p>
+              <span class="cta">Join WhatsApp group <i aria-hidden="true">→</i></span>
+            </span>
           </a>
-          <a class="chan ig" id="ch-ig" href="#join" target="_blank" rel="noopener">
-            <span class="mono tag">Instagram</span>
-            <div class="row"><span class="ring"><img src="cloudd-logo.webp" alt=""></span>
-              <span class="who"><h4 id="ch-ig-h">@clouddsessions</h4><span class="mono">CLOUDD · Lagos</span></span></div>
-            <div class="ig-grid" aria-hidden="true">
-              <i class="t1"><img src="cloudd-logo.webp" alt=""></i>
-              <i class="t2"><span>No noise<br>in the<br>clouds</span></i>
-              <i class="t3"><span class="mono">Vol.</span><b>001</b></i>
-            </div>
-            <p>Announcements, line-up reveals and the first look at the venue.</p>
-            <span class="mono cta">Follow on Instagram →</span>
+          <a class="chan live" id="ch-ig" href="#join" target="_blank" rel="noopener">
+            <span class="media"><img src="img/macro-o.jpg" alt="" loading="lazy" width="900" height="600"><span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg>Instagram</span></span>
+            <span class="body">
+              <h4 id="ch-ig-h">@clouddsessions</h4>
+              <p>Announcements, line-up reveals and the first look at where the cloud lands.</p>
+              <span class="cta">Follow on Instagram <i aria-hidden="true">→</i></span>
+            </span>
           </a>
-          <a class="chan pl" id="ch-pl" href="#join" target="_blank" rel="noopener">
-            <span class="mono tag">Playlist</span>
-            <div class="row"><span class="cover"><img src="cloudd-logo.webp" alt=""></span><h4>The CLOUDD sound</h4></div>
-            <div class="eq" id="eq" aria-hidden="true"></div>
-            <p>The running playlist from now until the first edition.</p>
-            <span class="mono cta">Listen →</span>
+          <a class="chan" id="ch-pl" href="#join" target="_blank" rel="noopener">
+            <span class="media"><img src="img/macro-dd.jpg" alt="" loading="lazy" width="900" height="600"><span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2"/></svg>Playlist</span></span>
+            <span class="body">
+              <h4>The CLOUDD sound</h4>
+              <p>European house and Afro house. The running playlist from now until doors.</p>
+              <span class="cta">Listen <i aria-hidden="true">→</i></span>
+            </span>
           </a>
         </div>
       </div>
@@ -813,7 +836,7 @@ document.getElementById("ch-ig-h").textContent = CONFIG.instagramHandle;
   .forEach(([id, url, soon]) => {
     const el = document.getElementById(id);
     if (url) { el.href = url; }
-    else { el.classList.add("soon"); el.removeAttribute("target"); el.querySelector(".cta").textContent = soon; }
+    else { el.classList.add("soon"); el.removeAttribute("target"); el.querySelector(".cta").innerHTML = soon; }
   });
 if (CONFIG.whatsappCommunity){ const d = document.getElementById("dock-wa"); d.href = CONFIG.whatsappCommunity; d.target = "_blank"; d.rel = "noopener"; }
 
@@ -1046,8 +1069,6 @@ const live = !!(CONFIG.supabaseUrl && CONFIG.supabaseAnonKey);
 const sbHeaders = { apikey: CONFIG.supabaseAnonKey, Authorization: `Bearer ${CONFIG.supabaseAnonKey}` };
 
 /* playlist bars */
-document.getElementById("eq").innerHTML = Array.from({ length: 28 }, (_, i) =>
-  `<i style="--h:${30 + Math.round(Math.abs(Math.sin(i * 1.7)) * 70)}%;--d:${(-(i * 137 % 100) / 80).toFixed(2)}s"></i>`).join("");
 
 const esc = t => String(t).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
 
