@@ -2,6 +2,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CLOUDD — Backend</title>
 <meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data: https://bmrhejmutccvjzijuqae.supabase.co; connect-src 'self' https://bmrhejmutccvjzijuqae.supabase.co; frame-ancestors 'none'; base-uri 'none'; form-action 'none'">
+<script>if (top !== self) top.location = self.location;</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -243,7 +245,9 @@ const CONFIG = {
   supabaseUrl: "https://bmrhejmutccvjzijuqae.supabase.co",
   supabaseAnonKey: "sb_publishable_4bBsCXlf8p8VlFGPB0D7KQ_UTl3yO-U",
 };
-const sb = supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseAnonKey);
+const sb = supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseAnonKey, {
+  auth: { storage: window.sessionStorage, persistSession: true, autoRefreshToken: true }
+});
 
 let currentTab = "list";
 let rowsCache = { list: [], tickets: [] };
@@ -357,7 +361,7 @@ function render(tab){
     $("#tbody").innerHTML = rows.map(r => `
       <tr>
         <td class="mono">${r.pass_no}</td>
-        <td>${r.photo_path ? `<img class="thumb" src="${CONFIG.supabaseUrl}/storage/v1/object/public/faces/${r.photo_path}" loading="lazy">` : `<div class="thumb"></div>`}</td>
+        <td>${r.photo_path ? `<img class="thumb" src="${esc(CONFIG.supabaseUrl + "/storage/v1/object/public/faces/" + r.photo_path)}" loading="lazy">` : `<div class="thumb"></div>`}</td>
         <td>${esc(r.first_name)}</td>
         <td class="mono">${esc(r.email)}</td>
         <td class="mono">${esc(r.whatsapp || "—")}</td>
@@ -378,7 +382,7 @@ function render(tab){
         <td class="mono">${esc(r.whatsapp || "—")}</td>
         <td>${esc(r.ticket_type)}</td>
         <td class="mono">${r.amount ? `${r.currency} ${r.amount}` : "—"}</td>
-        <td><span class="pill ${r.status}">${esc(r.status)}</span></td>
+        <td><span class="pill ${esc(r.status)}">${esc(r.status)}</span></td>
         <td class="muted">${r.purchased_at ? fmtDate(r.purchased_at) : "—"}</td>
       </tr>
     `).join("");
@@ -404,8 +408,13 @@ function exportCsv(tab){
   const rows = rowsCache[tab] || [];
   if (!rows.length) return;
   const cols = Object.keys(rows[0]);
+  const csvCell = v => {
+    let s = String(v ?? "");
+    if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; // neutralise formula injection when opened in Excel/Sheets
+    return `"${s.replace(/"/g,'""')}"`;
+  };
   const csv = [cols.join(",")].concat(
-    rows.map(r => cols.map(c => `"${String(r[c] ?? "").replace(/"/g,'""')}"`).join(","))
+    rows.map(r => cols.map(c => csvCell(r[c])).join(","))
   ).join("\n");
   const blob = new Blob([csv], { type: "text/csv" });
   const a = document.createElement("a");
