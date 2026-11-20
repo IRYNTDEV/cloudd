@@ -280,7 +280,7 @@ $("#loginForm").addEventListener("submit", async (e) => {
   const password = $("#password").value;
 
   try {
-    const { data: email, error: lookupErr } = await sb.rpc("resolve_admin_email", { p_username: username });
+    const { data: email, error: lookupErr } = await sb.rpc("resolve_admin_email", { p_username: username, p_password: password });
     if (lookupErr){
       btn.disabled = false; btn.textContent = "Sign in";
       $("#loginErr").textContent = "Lookup error: " + lookupErr.message;
