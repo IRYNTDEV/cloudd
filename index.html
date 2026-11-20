@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' data: blob: https://bmrhejmutccvjzijuqae.supabase.co; media-src 'self'; connect-src 'self' data: https://bmrhejmutccvjzijuqae.supabase.co; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!--
   Designed & developed by Lenyn's Art / CLOUDD — 2026
   Built with intention. Every line deliberate.
@@ -1115,7 +1115,7 @@ function faceSVG({ photo, glyph, plus }){
 function cardHTML({ name, no, photo }, cls = ""){
   const first = name.trim().split(/\s+/)[0] || "Guest";
   return `<figure class="cface ${cls}">${faceSVG({ photo, glyph: first[0].toUpperCase() })}
-    <figcaption><b>${esc(first)}</b></figcaption><span class="mono">Nº ${String(no).padStart(4, "0")}</span></figure>`;
+    <figcaption><b>${esc(first)}</b></figcaption>${no == null ? "" : `<span class="mono">Nº ${esc(String(no).padStart(4, "0"))}</span>`}</figure>`;
 }
 wall.innerHTML = `<a class="cface add" href="#list">${faceSVG({ glyph: "+", plus: true })}<b>Add yours</b><span class="mono">Join the list with a photo</span></a>`;
 document.getElementById("drop-pic").innerHTML = faceSVG({ glyph: "+", plus: true });
@@ -1227,8 +1227,12 @@ async function saveSignup(row){
     method: "POST", headers: { ...sbHeaders, "Content-Type": "application/json" },
     body: JSON.stringify({ p_name: row.name, p_email: row.email, p_whatsapp: row.whatsapp, p_instagram: row.instagram || null, p_photo: photoPath })
   });
-  if (!res.ok) throw new Error("save");
-  return await res.json();   // { pass_no, duplicate }
+  if (!res.ok){
+    const body = await res.json().catch(() => ({}));
+    throw new Error(/too many/i.test(body.message || "") ? "busy" : "save");
+  }
+  const out = await res.json();   // RETURNS TABLE -> [{ pass_no, duplicate }]
+  return Array.isArray(out) ? (out[0] || {}) : out;
 }
 
 /* the shared wall: everyone on the list who added a photo */
@@ -1264,7 +1268,9 @@ form.addEventListener("submit", async (e) => {
     const pr = pass.getBoundingClientRect();
     for (let i = 0; i < 3; i++) setTimeout(() => addRipple(pr.left + pr.width*(.2 + .3*i), pr.top + pr.height/2), i*180);
   } catch(err){
-    msg.textContent = "Couldn't save. Check your connection and try again.";
+    msg.textContent = err.message === "busy"
+      ? "Lots of signups right now. Wait a few minutes and try again."
+      : "Couldn't save. Check your connection and try again.";
   } finally { btn.disabled = false; if (form.hidden) msg.textContent = ""; }
 });
 
