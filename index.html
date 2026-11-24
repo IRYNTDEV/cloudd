@@ -715,7 +715,7 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
       </div>
     </section>
 
-    <section id="wall" aria-labelledby="ed-h" style="padding-top:0">
+    <section id="wall" class="photos-only" aria-labelledby="ed-h" style="padding-top:0">
       <div class="grid">
         <div class="rule mono emboss"><span>The cloud wall</span><span>Vol. 001</span></div>
         <div class="ed-head emboss"><h2 id="ed-h">Put your face<br>on the cloud.</h2></div>
@@ -788,7 +788,7 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
           <input id="f-wa" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="WhatsApp number" required>
           <div class="err" id="e-wa"></div>
         </div>
-        <div class="field">
+        <div class="field photos-only">
           <label class="drop" for="f-photo">
             <span class="drop-pic" id="drop-pic"></span>
             <span class="drop-t"><b id="drop-b">Add your face</b><span>Optional. It goes inside a cloud on the wall.</span></span>
@@ -814,7 +814,7 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
         <span class="mono tagline">CLOUDD · Vol. 001</span>
         <h3 id="p-head">You're on the cloud list.</h3>
         <p id="p-copy">We'll email and WhatsApp you first when registration and tickets go live.</p>
-        <a class="mono done-link" href="#wall">See the cloud wall →</a>
+        <a class="mono done-link photos-only" href="#wall">See the cloud wall →</a>
       </div>
     </div>
   </div>
@@ -840,6 +840,7 @@ const CONFIG = {
   supabaseUrl: "https://bmrhejmutccvjzijuqae.supabase.co",
   supabaseAnonKey: "sb_publishable_4bBsCXlf8p8VlFGPB0D7KQ_UTl3yO-U",
   table: "rsvps",
+  photos: false,            // true brings back the cloud wall + "add your face" upload
   instagram: "https://www.instagram.com/clouddsessions/",
   instagramHandle: "@clouddsessions",
   whatsappCommunity: "",    // e.g. "https://chat.whatsapp.com/XXXX"
@@ -849,6 +850,9 @@ const CONFIG = {
   time: "9PM — LATE",
   place: "location drops to the list"
 };
+
+/* photo wall switch */
+if (!CONFIG.photos) document.querySelectorAll(".photos-only").forEach(el => { el.hidden = true; });
 
 /* apply config copy */
 document.getElementById("f-date").textContent = CONFIG.date;
@@ -1219,7 +1223,7 @@ async function saveSignup(row){
     return { pass_no: n, duplicate: false };
   }
   let photoPath = null;
-  if (row.photo){
+  if (row.photo && CONFIG.photos){
     const blob = await (await fetch(row.photo)).blob();
     photoPath = `${crypto.randomUUID()}.jpg`;
     const up = await fetch(`${CONFIG.supabaseUrl}/storage/v1/object/faces/${photoPath}`, { method: "POST", headers: { ...sbHeaders, "Content-Type": "image/jpeg" }, body: blob });
@@ -1239,7 +1243,7 @@ async function saveSignup(row){
 
 /* the shared wall: everyone on the list who added a photo */
 (async function loadWall(){
-  if (!live) return;
+  if (!live || !CONFIG.photos) return;
   try {
     const res = await fetch(`${CONFIG.supabaseUrl}/rest/v1/rpc/list_wall`, { method: "POST", headers: { ...sbHeaders, "Content-Type": "application/json" }, body: "{}" });
     if (!res.ok) return;
@@ -1265,7 +1269,7 @@ form.addEventListener("submit", async (e) => {
     if (out.duplicate){
       document.getElementById("p-head").textContent = "You're already on the cloud list.";
       document.getElementById("p-copy").textContent = "This email is already on the list. We'll email and WhatsApp you first when tickets go live.";
-    } else if (photoData){ addToWall(entry); }
+    } else if (photoData && CONFIG.photos){ addToWall(entry); }
     form.hidden = true; pass.hidden = false; pass.classList.add("reveal"); pass.focus({ preventScroll:true });
     const pr = pass.getBoundingClientRect();
     for (let i = 0; i < 3; i++) setTimeout(() => addRipple(pr.left + pr.width*(.2 + .3*i), pr.top + pr.height/2), i*180);
