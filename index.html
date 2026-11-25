@@ -656,6 +656,209 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
 .chan.live .cta{color:var(--sky)}
 .chan.soon .cta{opacity:.5}
 @media (max-width:900px){.channels{grid-template-columns:1fr}.chan .media{aspect-ratio:16/9}}
+/* ---------- party sections: tape, departures board, boarding passes, sky box, FAQ ---------- */
+body{overflow-x:clip}
+:root{--paper:#eaf4fd;--tile:#0b1424}
+.cond{font-family:var(--f-display);font-variation-settings:"wdth" 62;font-weight:900;text-transform:uppercase;line-height:.84;letter-spacing:-.005em}
+/* marquee tape */
+.tape-wrap{position:relative;height:190px;overflow:hidden;margin:clamp(10px,3vh,30px) calc(50% - 50vw);width:100vw}
+.tape{position:absolute;left:-5%;width:110%;white-space:nowrap;overflow:hidden;padding:14px 0;box-shadow:0 10px 30px rgba(3,10,22,.45)}
+.tape.a{top:56px;background:var(--sky);color:var(--night);transform:rotate(-2.4deg);z-index:2}
+.tape.b{top:80px;background:#f6fbff;color:var(--sky-deep);transform:rotate(1.8deg)}
+.tape .run{display:inline-flex;gap:34px;animation:run 26s linear infinite;font-size:clamp(22px,2.4vw,34px)}
+.tape.b .run{animation-direction:reverse;animation-duration:32s}
+.tape .run span{display:inline-flex;align-items:center;gap:34px}
+.tape .run i{font-style:normal;font-size:.8em}
+@keyframes run{to{transform:translateX(-50%)}}
+/* departures board */
+.dep-head{grid-column:1 / -1;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.dep-head h2{margin:0;font-size:clamp(64px,11vw,170px);color:var(--raised);text-shadow:var(--emboss);position:relative}
+.dep-head p{margin:0 0 14px;max-width:34ch;font-size:15px;line-height:1.6}
+.board{grid-column:1 / -1;margin-top:clamp(40px,7vh,72px);background:#050b16;border-radius:22px;padding:clamp(16px,2.4vw,30px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 30px 70px rgba(2,8,18,.55);border:1px solid rgba(79,179,255,.18)}
+.board-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;color:#8fa6bd}
+.board-top b{color:var(--sky);font-weight:500}
+.brow{display:grid;grid-template-columns:90px 1fr 170px 160px;gap:18px;align-items:center;padding:12px 0;border-top:1px solid rgba(143,166,189,.14)}
+.brow.hd{border-top:0;padding-top:0;color:#5f7790}
+.brow .t{font-family:var(--f-mono);font-size:18px;color:#f2c94c}
+.brow .s{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#c6d4e1}
+.brow .st{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8fa6bd;text-align:right}
+.brow .st.on{color:var(--sky)}
+.brow .st.on::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--sky);margin-right:8px;vertical-align:1px;animation:blink 1.2s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.flaps{display:flex;gap:4px;flex-wrap:nowrap}
+.flaps span{position:relative;display:grid;place-items:center;width:clamp(22px,2.3vw,34px);height:clamp(32px,3.2vw,46px);border-radius:5px;
+  background:linear-gradient(180deg,#1a2740 0 49%,#0e182b 51% 100%);color:#f6fbff;font-family:var(--f-mono);font-weight:500;font-size:clamp(15px,1.6vw,24px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 2px 4px rgba(0,0,0,.5)}
+.flaps span::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.65)}
+.flaps span.sp{background:none;box-shadow:none;width:10px}.flaps span.sp::after{display:none}
+.flaps span.tick{animation:flip .09s ease-in}
+@keyframes flip{from{transform:rotateX(70deg)}to{transform:none}}
+/* boarding-pass tickets */
+.passes{grid-column:1 / -1;display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(20px,3vw,40px);margin-top:clamp(40px,7vh,72px);align-items:center}
+.bp{position:relative;display:grid;grid-template-columns:1fr 150px;color:var(--night);text-decoration:none;filter:drop-shadow(0 26px 40px rgba(2,8,18,.5));transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.bp .main,.bp .stub{background:#fbfdff;position:relative}
+.bp .main{border-radius:20px 0 0 20px;padding:26px 28px;display:grid;gap:16px;
+  -webkit-mask:radial-gradient(circle 13px at 100% 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 13px at 100% 100%,#0000 98%,#000) bottom/100% 51% no-repeat}
+.bp .stub{border-radius:0 20px 20px 0;padding:26px 18px;display:grid;align-content:space-between;justify-items:start;gap:14px;
+  border-left:2px dashed #b9c9d8;transform-origin:0 100%;transition:transform .6s cubic-bezier(.2,.8,.2,1);
+  -webkit-mask:radial-gradient(circle 13px at 0 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 13px at 0 100%,#0000 98%,#000) bottom/100% 51% no-repeat}
+.bp:hover{transform:rotate(-1.2deg) translateY(-4px)}
+.bp:hover .stub{transform:rotate(7deg) translate(10px,4px)}
+.bp .top{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#59708a}
+.bp .route{display:flex;align-items:center;gap:14px}
+.bp .route b{font-size:clamp(44px,5vw,72px)}
+.bp .route i{flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--sky) 0 8px,transparent 8px 14px);position:relative}
+.bp .route i::after{content:"☁";position:absolute;left:50%;top:50%;transform:translate(-50%,-55%);font-style:normal;font-size:24px;color:var(--sky);background:#fbfdff;padding:0 6px}
+.bp .route small{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;color:#59708a;text-transform:uppercase;margin-top:6px}
+.bp .row{display:flex;gap:28px;flex-wrap:wrap}
+.bp .row div{font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#59708a}
+.bp .row div b{display:block;margin-top:4px;font-family:var(--f-display);font-variation-settings:"wdth" 110;font-weight:800;font-size:16px;letter-spacing:.02em;color:var(--night)}
+.bp .price{font-size:clamp(40px,4.4vw,64px);color:var(--sky-deep)}
+.bp .adm{font-family:var(--f-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;writing-mode:vertical-rl;transform:rotate(180deg);color:#59708a}
+.bp .bar{width:100%;height:58px;background:repeating-linear-gradient(90deg,var(--night) 0 2px,transparent 2px 4px,var(--night) 4px 7px,transparent 7px 9px,var(--night) 9px 10px,transparent 10px 13px)}
+.bp .go{font-family:var(--f-display);font-variation-settings:"wdth" 125;font-weight:800;font-size:12px;letter-spacing:.18em;background:var(--night);color:#fff;padding:10px 14px;border-radius:999px}
+.bp.soon{filter:drop-shadow(0 18px 30px rgba(2,8,18,.4)) grayscale(.6);opacity:.78;transform:rotate(2.5deg) scale(.92)}
+.bp.soon:hover{transform:rotate(2.5deg) scale(.92)}.bp.soon:hover .stub{transform:none}
+.stamp-soon{position:absolute;right:28%;top:50%;transform:translateY(-50%) rotate(-14deg);border:3px solid var(--sky-deep);color:var(--sky-deep);border-radius:10px;padding:8px 14px;
+  font-family:var(--f-mono);font-weight:500;font-size:13px;letter-spacing:.18em;text-transform:uppercase;background:rgba(251,253,255,.85);z-index:2;text-align:center;line-height:1.5}
+.passes-note{grid-column:1 / -1;margin:18px 0 0;opacity:.8}
+/* light paper section */
+.paper{background:var(--paper);color:var(--night);position:relative;overflow:hidden;border-radius:42px;margin-block:clamp(40px,8vh,90px)}
+.paper .grid{padding-inline:clamp(20px,4.5vw,64px)}
+.paper::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 40% at 85% 0%,rgba(79,179,255,.35),transparent 70%),radial-gradient(50% 40% at 0% 100%,rgba(27,75,143,.16),transparent 70%);pointer-events:none}
+.paper .grid{position:relative}
+.paper .rule{color:var(--sky-deep);border-color:var(--night);box-shadow:none;text-shadow:none}
+.code-head{grid-column:1 / span 8;position:relative}
+.code-head h2{margin:0;font-size:clamp(60px,9.5vw,150px);color:var(--night)}
+.stickers{grid-column:1 / -1;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(18px,3vw,40px);margin-top:clamp(36px,6vh,64px);padding-bottom:10px}
+.stk{position:relative;min-width:0;padding:26px 24px 30px;border-radius:30px;border:7px solid #fff;display:grid;gap:10px;align-content:start;
+  box-shadow:0 2px 0 #d7e4ef,0 14px 26px rgba(7,18,36,.22);transform:rotate(var(--r));transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s;cursor:grab;overflow:hidden}
+.stk::after{content:"";position:absolute;right:-7px;bottom:-7px;width:0;height:0;background:linear-gradient(135deg,rgba(0,0,0,.0) 0 50%,#fff 50%,#dfe9f2 100%);
+  border-top-left-radius:14px;box-shadow:-4px -4px 10px rgba(7,18,36,.2);transition:width .45s,height .45s}
+.stk:hover{transform:rotate(0deg) translateY(-8px) scale(1.03);box-shadow:0 2px 0 #d7e4ef,0 28px 40px rgba(7,18,36,.28)}
+.stk:hover::after{width:64px;height:64px}
+.stk h4{margin:0;font-size:clamp(34px,3.2vw,46px)}
+.stk p{margin:0;font-size:14px;line-height:1.5}
+.stk .no{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;opacity:.7}
+.stk.navy{background:var(--night);color:#fff}
+.stk.sky{background:var(--sky);color:var(--night)}
+.stk.chrome{background:linear-gradient(160deg,#ffffff 0%,#dbe7f1 38%,#9fb3c4 55%,#e7eff6 75%,#ffffff 100%);color:var(--night)}
+.stk.cloud{background:#fff;color:var(--night);border-color:var(--sky);border-radius:60px 60px 30px 30px}
+.stk .sw{display:flex;gap:6px}.stk .sw i{width:20px;height:20px;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 3px rgba(7,18,36,.3)}
+/* FAQ */
+.faq-wrap{grid-column:1 / -1;display:grid;grid-template-columns:4fr 7fr;gap:clamp(24px,5vw,80px);margin-top:clamp(70px,12vh,130px);align-items:start}
+.faq-side{position:sticky;top:90px}
+.faq-side h3{margin:0;font-size:clamp(48px,6vw,92px);color:var(--night)}
+.faq-side p{margin:22px 0 0;font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;line-height:1.7;color:#3b5672;max-width:30ch}
+.faq-side a{color:var(--sky-deep)}
+.faq-box{max-width:640px;background:#fff;border-radius:28px;padding:8px 30px;box-shadow:0 1px 0 #d7e4ef,0 24px 60px rgba(7,18,36,.12)}
+.faq-box details{border-top:1px solid #e3ecf4;padding:20px 0}
+.faq-box details:first-child{border-top:0}
+.faq-box summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:34px 1fr 34px;gap:12px;align-items:center;font-weight:800;font-variation-settings:"wdth" 108;font-size:16px;letter-spacing:.01em}
+.faq-box summary::-webkit-details-marker{display:none}
+.faq-box summary .pm{width:34px;height:34px;border-radius:50%;background:var(--paper);display:grid;place-items:center;font-weight:300;font-size:20px;color:var(--sky-deep);transition:transform .35s,background .35s}
+.faq-box details[open] summary .pm{transform:rotate(45deg);background:var(--sky);color:#fff}
+.faq-box details p{margin:12px 46px 0;font-size:14.5px;line-height:1.65;color:#2e4661}
+@media (max-width:900px){
+  .stickers{grid-template-columns:repeat(2,1fr)}
+  .brow{grid-template-columns:60px 1fr 110px}.brow .s{display:none}.brow .t{font-size:14px}
+  .passes{grid-template-columns:1fr}.bp.soon{transform:rotate(1.5deg) scale(.95)}
+  .code-head{grid-column:1 / -1}
+  .faq-wrap{grid-template-columns:1fr}.faq-side{position:static}
+}
+@media (max-width:560px){
+  .brow{grid-template-columns:1fr auto}.brow .t{display:none}.brow.hd{display:none}
+  .flaps span{width:20px;height:30px;font-size:14px}
+  .bp{grid-template-columns:1fr 96px}.bp .main{padding:20px 18px}.bp .stub{padding:20px 12px}.bp .bar{height:44px}
+  .stamp-soon{right:auto;left:30%}
+  .faq-box{padding:4px 18px}.faq-box details p{margin:10px 0 0}
+  .paper{border-radius:28px}
+}
+
+@media (max-width:560px){.board-top span:last-child{display:none}
+  .stickers{display:flex;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(-1 * clamp(20px,4.5vw,64px));padding:16px clamp(20px,4.5vw,64px) 24px}
+  .stk{flex:0 0 76%;scroll-snap-align:center}}
+
+/* v3: CLOUDD-native replacements */
+.wide{display:block;font-family:var(--f-display);font-variation-settings:"wdth" 125;font-weight:300;text-transform:uppercase;letter-spacing:.34em;
+  font-size:clamp(13px,1.3vw,18px);line-height:1.2;color:var(--sky);margin-top:.9em;text-shadow:none}
+.dep-head h2 .wide{position:static;transform:none;font-size:clamp(13px,1.3vw,18px)}
+.code-head h2 .wide,.faq-side h3 .wide{color:var(--sky-deep);transform:none;margin:.9em 0 0;font-size:clamp(13px,1.3vw,18px)}
+.code-head h2 .ol{font-style:normal;color:transparent;-webkit-text-stroke:2px var(--night)}
+.paper{background:linear-gradient(180deg,#7cc4ff 0%,#a9d8ff 34%,#dcefff 72%,#f4faff 100%)}
+.paper::before{background:
+  radial-gradient(closest-side,rgba(255,255,255,.95),transparent) 4% 18%/38% 16% no-repeat,
+  radial-gradient(closest-side,rgba(255,255,255,.85),transparent) 88% 8%/46% 18% no-repeat,
+  radial-gradient(closest-side,rgba(255,255,255,.9),transparent) 70% 46%/40% 14% no-repeat,
+  radial-gradient(closest-side,rgba(255,255,255,.95),transparent) 12% 78%/50% 18% no-repeat;
+  filter:blur(8px);animation:sky 30s ease-in-out infinite alternate}
+@keyframes sky{to{transform:translateX(4%)}}
+.paper .rule{border-color:rgba(7,18,36,.6)}
+.report{grid-column:10 / span 3;align-self:center;justify-self:end;width:100%;max-width:260px;background:rgba(7,18,36,.9);color:#dfeaf4;border-radius:18px;padding:16px 18px;
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 20px 40px rgba(7,18,36,.25)}
+.rp-top{display:flex;justify-content:space-between;color:var(--sky);margin-bottom:10px}
+.report dl{margin:0;display:grid;gap:7px}
+.report dl div{display:flex;justify-content:space-between;gap:10px;border-top:1px solid rgba(223,234,244,.12);padding-top:7px}
+.report dt{opacity:.6}.report dd{margin:0;color:#fff}
+.alt{margin-top:12px;height:6px;border-radius:999px;background:rgba(223,234,244,.15);overflow:hidden}
+.alt i{display:block;height:100%;width:calc(var(--v)*100%);background:linear-gradient(90deg,var(--sky),#fff);animation:alt 3s ease-in-out infinite alternate}
+@keyframes alt{from{width:70%}}
+.stk.sky{background:#1b4b8f;color:#fff}
+@media (max-width:900px){.report{grid-column:1 / -1;justify-self:start;margin-top:18px}}
+/* mobile: channel cards 2 + 1, smaller */
+@media (max-width:600px){
+  .channels{grid-template-columns:1fr 1fr !important;gap:10px}
+  .channels .chan:nth-child(3){grid-column:1 / -1}
+  .chan .media{aspect-ratio:4/3}
+  .channels .chan:nth-child(3) .media{aspect-ratio:21/9}
+  .chan .pill{top:8px;right:8px;left:8px;justify-content:center;padding:6px 8px;font-size:9px;gap:6px}
+  .chan .pill svg{width:12px;height:12px}
+  .chan .body{padding:12px 12px 14px;gap:6px}
+  .chan h4,.chan .body h4{font-size:15px}
+  .chan p,.chan .body p{display:none}
+  .chan .cta{font-size:10px;letter-spacing:.1em;padding-top:2px}
+}
+
+@media (max-width:600px){
+  .chan .pill{font-size:8.5px !important;letter-spacing:.08em !important;padding:5px 8px !important;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 16px)}
+  .chan .body{padding:10px 12px 12px !important;gap:4px !important}
+  .chan .body > *{font-size:10px !important;letter-spacing:.08em !important;line-height:1.35 !important}
+  .chan .body h4{font-size:14px !important;letter-spacing:.02em !important}
+  .chan .body hr,.chan .body .line{display:none}
+  .chan .cta{padding-top:4px !important;border-top:0 !important}
+  .channels .chan:nth-child(3){flex-direction:row !important}
+  .channels .chan:nth-child(3) .media{aspect-ratio:auto !important;width:42%;flex:none;border-bottom:0}
+  .channels .chan:nth-child(3) .body{justify-content:center}
+}
+
+/* v4 */
+.faq-box summary{grid-template-columns:1fr 34px;font-family:var(--f-display);font-variation-settings:"wdth" 72;font-weight:800;text-transform:uppercase;
+  font-size:clamp(19px,1.7vw,24px);line-height:1.02;letter-spacing:.005em;color:var(--night)}
+.faq-box details p{margin:12px 46px 0 0;font-size:15px;line-height:1.65;color:#33506d}
+.faq-box details[open] summary{color:var(--sky-deep)}
+@media (max-width:600px){
+  .channels .chan:nth-child(3){grid-column:auto;flex-direction:column !important}
+  .channels .chan:nth-child(3) .media{width:auto;aspect-ratio:4/3 !important;border-bottom:1px solid rgba(242,248,253,.14)}
+  .paper{border-radius:0;margin-inline:calc(50% - 50vw);width:100vw}
+  .paper > section{padding-block:48px 40px}
+  .paper .grid{padding-inline:16px}
+  .code-head h2{font-size:56px}
+  .report{padding:12px 14px;font-size:10px;margin-top:14px}
+  .report dl{grid-template-columns:1fr 1fr;gap:6px 14px}
+  .report dl div{flex-direction:column;gap:2px}
+  .rp-top{margin-bottom:6px}
+  .stickers{margin-top:22px;margin-inline:-16px;padding:12px 16px 18px;gap:14px}
+  .stk{flex:0 0 66%;padding:18px 18px 20px;border-width:5px;border-radius:24px}
+  .stk h4{font-size:30px}.stk p{font-size:13px}
+  .faq-wrap{margin-top:44px;gap:18px}
+  .faq-side h3{font-size:40px}
+  .faq-side p{margin-top:12px}
+  .faq-box summary{font-size:18px}
+  .faq-box details{padding:16px 0}
+  .faq-box details p{margin:10px 0 0;font-size:14px}
+}
+@media (prefers-reduced-motion:reduce){.tape .run,.dj::before,.paper::before,.alt i{animation:none}}
 </style>
 
 <script>if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("intro");</script>
@@ -682,6 +885,13 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
       </div>
 
       <div class="edition"><span class="chip">VOL. 001</span><span class="mono emboss">The first edition</span></div>
+
+      <div class="count emboss" id="count" aria-label="Countdown to doors">
+        <div><b id="cd-d">21</b><span class="mono">Days</span></div><span class="sep">:</span>
+        <div><b id="cd-h">00</b><span class="mono">Hrs</span></div><span class="sep">:</span>
+        <div><b id="cd-m">00</b><span class="mono">Min</span></div><span class="sep">:</span>
+        <div><b id="cd-s">00</b><span class="mono">Sec</span></div>
+      </div>
 
       <div class="card-line tagline emboss"><hr aria-hidden="true"><p id="tagline" aria-label="No noise in the clouds">NO NOISE IN THE CLOUDS</p><hr aria-hidden="true"></div>
 
@@ -734,6 +944,96 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
         </div>
       </div>
     </section>
+
+    <div class="tape-wrap" aria-hidden="true">
+      <div class="tape a"><div class="run cond"><span>No noise in the clouds <i>☁</i> 16.12.26 <i>☁</i> Amah Studio <i>☁</i> 9PM — 5AM <i>☁</i></span><span>No noise in the clouds <i>☁</i> 16.12.26 <i>☁</i> Amah Studio <i>☁</i> 9PM — 5AM <i>☁</i></span></div></div>
+      <div class="tape b"><div class="run cond"><span>Afro house <i>✦</i> European house <i>✦</i> Vol. 001 <i>✦</i> Into the blue <i>✦</i></span><span>Afro house <i>✦</i> European house <i>✦</i> Vol. 001 <i>✦</i> Into the blue <i>✦</i></span></div></div>
+    </div>
+
+    <section aria-labelledby="lu-h" style="padding-top:clamp(30px,6vh,60px)">
+      <div class="grid">
+        <div class="rule mono emboss"><span>The lineup</span><span>Names land 1 Dec</span></div>
+        <div class="dep-head">
+          <h2 id="lu-h" class="cond">Departures<span class="wide">into the blue</span></h2>
+          <p class="emboss">Four sets, one night. Names land on the board one at a time, and the cloud list sees each one first.</p>
+        </div>
+        <div class="board" role="table" aria-label="Lineup board">
+          <div class="board-top mono"><span>CLOUDD · Flight 001 · LOS → CLD</span><span>Local time <b id="bt-clock">21:00</b></span></div>
+          <div class="brow hd mono"><span>Time</span><span>Act</span><span>Sound</span><span style="text-align:right">Status</span></div>
+          <div class="brow"><span class="t">21:00</span><span class="flaps" data-text="DJ NAME"></span><span class="s">Deep house</span><span class="st on">Boarding</span></div>
+          <div class="brow"><span class="t">23:00</span><span class="flaps" data-text="??????" data-mystery></span><span class="s">European house</span><span class="st">Lands 04 Dec</span></div>
+          <div class="brow"><span class="t">01:30</span><span class="flaps" data-text="??????" data-mystery></span><span class="s">Afro house</span><span class="st">Lands 08 Dec</span></div>
+          <div class="brow"><span class="t">03:30</span><span class="flaps" data-text="??????" data-mystery></span><span class="s">Closing set</span><span class="st">Lands 12 Dec</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="tl-h" style="padding-top:0">
+      <div class="grid">
+        <div class="rule mono emboss"><span>Tickets</span><span>Prices climb as tiers sell</span></div>
+        <div class="dep-head"><h2 id="tl-h" class="cond">Board early<span class="wide">window seat</span></h2></div>
+        <div class="passes">
+          <a class="bp" href="#tickets">
+            <div class="main">
+              <div class="top"><span>Boarding pass · Vol. 001</span><span>Early Bird</span></div>
+              <div class="route"><div><b class="cond">LOS</b><small>Lagos</small></div><i></i><div><b class="cond">CLD</b><small>The clouds</small></div></div>
+              <div class="row"><div>Date<b>WED 16 DEC</b></div><div>Doors<b>21:00</b></div><div>Gate<b>Amah Studio</b></div></div>
+              <div class="price cond">₦18,000</div>
+            </div>
+            <div class="stub"><span class="adm">Admit one</span><div class="bar"></div><span class="go">GET →</span></div>
+          </a>
+          <div class="bp soon" aria-label="Next tier, not on sale yet">
+            <span class="stamp-soon">Next tier<br>₦25,000</span>
+            <div class="main">
+              <div class="top"><span>Boarding pass · Vol. 001</span><span>Standard</span></div>
+              <div class="route"><div><b class="cond">LOS</b></div><i></i><div><b class="cond">CLD</b></div></div>
+              <div class="price cond">₦25,000</div>
+            </div>
+            <div class="stub"><span class="adm">Admit one</span><div class="bar"></div></div>
+          </div>
+        </div>
+        <p class="passes-note mono emboss">Unlocks when Early Bird sells out · Last call announced on the list</p>
+      </div>
+    </section>
+
+    <div class="paper">
+    <section aria-labelledby="cc-h">
+      <div class="grid">
+        <div class="rule mono"><span>The cloud code</span><span>House rules</span></div>
+        <div class="code-head"><h2 id="cc-h" class="cond">How we <em class="ol">move</em><span class="wide">up in the clouds</span></h2></div>
+        <div class="report" aria-label="Cloud report">
+          <div class="rp-top"><span>Cloud report</span><span>LOS · 16.12</span></div>
+          <dl>
+            <div><dt>Altitude</dt><dd>10,000 ft</dd></div>
+            <div><dt>Chance of bass</dt><dd>100%</dd></div>
+            <div><dt>Wind</dt><dd>124 BPM</dd></div>
+            <div><dt>Visibility</dt><dd>Lights only</dd></div>
+          </dl>
+          <div class="alt"><i style="--v:.92"></i></div>
+        </div>
+        <div class="stickers">
+          <article class="stk navy" style="--r:-5deg"><span class="no">Rule 01</span><h4 class="cond">All floor</h4><p>No tables, no bottle parade. One dancefloor, same for everyone.</p></article>
+          <article class="stk chrome" style="--r:4deg"><span class="no">Rule 02</span><h4 class="cond">Wear the blue</h4><div class="sw"><i style="background:#4fb3ff"></i><i style="background:#c9d2da"></i><i style="background:#fff"></i><i style="background:#1b4b8f"></i></div><p>Blue, silver, chrome, white. Optional. Dress light, it gets hot.</p></article>
+          <article class="stk sky" style="--r:-3deg"><span class="no">Rule 03</span><h4 class="cond">Look out</h4><p>Care team on the floor all night. Not okay? Find a crew member in white.</p></article>
+          <article class="stk cloud" style="--r:6deg"><span class="no">Rule 04</span><h4 class="cond">Phones down</h4><p>Catch one moment, then put it away. Dance with who's next to you.</p></article>
+        </div>
+
+        <div class="faq-wrap">
+          <div class="faq-side">
+            <h3 id="fq-h" class="cond">Before you pull up<span class="wide">boarding info</span></h3>
+            <p>Still lost? Ask on the <a href="#join">WhatsApp community</a>. Someone from the crew answers.</p>
+          </div>
+          <div class="faq-box">
+            <details open><summary>Where is Amah Studio?<span class="pm">+</span></summary><p>Full address and map pin go to ticket holders and the WhatsApp community the week of the party.</p></details>
+            <details><summary>It's a Wednesday. When should I come?<span class="pm">+</span></summary><p>Doors 9PM, music until 5AM. Set times drop on the list the day before.</p></details>
+            <details><summary>How do I get there and home?<span class="pm">+</span></summary><p>Ride-hailing drop-off at the gate. Limited parking. We'll share the best 5AM pickup spot.</p></details>
+            <details><summary>Can I transfer my ticket?<span class="pm">+</span></summary><p>Yes, through Tix Africa. Tickets are non-refundable.</p></details>
+            <details><summary>Is there an age limit?<span class="pm">+</span></summary><p>18+. Bring ID.</p></details>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
 
     <section id="wall" class="photos-only" aria-labelledby="ed-h" style="padding-top:0">
       <div class="grid">
@@ -1374,4 +1674,26 @@ form.addEventListener("submit", async (e) => {
 })();
 </script>
 
+<script>
+(function(){var el=document.getElementById("count");if(!el)return;
+var t=new Date(typeof CONFIG!=="undefined"&&CONFIG.eventDate?CONFIG.eventDate:"2026-12-16T21:00:00+01:00").getTime();
+function p(n){return String(n).padStart(2,"0")}
+function tick(){var s=Math.floor((t-Date.now())/1000);if(s<=0){el.hidden=true;return}
+document.getElementById("cd-d").textContent=Math.floor(s/86400);document.getElementById("cd-h").textContent=p(Math.floor(s%86400/3600));
+document.getElementById("cd-m").textContent=p(Math.floor(s%3600/60));document.getElementById("cd-s").textContent=p(s%60)}
+tick();setInterval(tick,1000)})();
+</script>
+<script>
+(function(){var A="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",rm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function rnd(){return A[Math.floor(Math.random()*A.length)]}
+document.querySelectorAll(".flaps").forEach(function(el){var txt=el.dataset.text,cells=[];
+  txt.split("").forEach(function(c){var s=document.createElement("span");if(c===" "){s.className="sp"}else{s.textContent=rm?c:rnd()}el.appendChild(s);cells.push([s,c])});
+  el.setAttribute("aria-label",el.dataset.mystery!==undefined?"To be announced":txt);
+  function settle(){cells.forEach(function(p,i){if(p[1]===" ")return;var n=6+i*3+Math.floor(Math.random()*6),k=0;
+    (function step(){p[0].classList.remove("tick");void p[0].offsetWidth;p[0].classList.add("tick");
+      p[0].textContent=k>=n?p[1]:rnd();if(k++<n)setTimeout(step,70)})()})}
+  if(rm)return;var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){settle();io.disconnect();
+    if(el.dataset.mystery!==undefined)setInterval(settle,4200+Math.random()*1500)}},{threshold:.4});io.observe(el)});
+})();
+</script>
 </body></html>
