@@ -376,7 +376,7 @@ function render(tab){
     hideEmpty();
     $("#tbody").innerHTML = rows.map(r => `
       <tr>
-        <td class="mono">${r.pass_no}</td>
+        <td class="mono">${esc(r.pass_no)}</td>
         <td>${r.photo_path ? `<img class="thumb" src="${esc(CONFIG.supabaseUrl + "/storage/v1/object/public/faces/" + r.photo_path)}" loading="lazy">` : `<div class="thumb"></div>`}</td>
         <td>${esc(r.first_name)}</td>
         <td class="mono">${esc(r.email)}</td>
@@ -392,12 +392,12 @@ function render(tab){
     hideEmpty();
     $("#tbody").innerHTML = rows.map(r => `
       <tr>
-        <td class="mono">${r.ticket_no}</td>
+        <td class="mono">${esc(r.ticket_no)}</td>
         <td>${esc(r.full_name)}</td>
         <td class="mono">${esc(r.email)}</td>
         <td class="mono">${esc(r.whatsapp || "—")}</td>
         <td>${esc(r.ticket_type)}</td>
-        <td class="mono">${r.amount ? `${r.currency} ${r.amount}` : "—"}</td>
+        <td class="mono">${r.amount ? `${esc(r.currency)} ${esc(r.amount)}` : "—"}</td>
         <td><span class="pill ${esc(r.status)}">${esc(r.status)}</span></td>
         <td class="muted">${r.purchased_at ? fmtDate(r.purchased_at) : "—"}</td>
       </tr>
