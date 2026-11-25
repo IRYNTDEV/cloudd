@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CLOUDD RSVP</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="CLOUDD — a European house and Afro house rave in Lagos this Detty December. Join the cloud list to hear first when tickets go live.">
+<meta name="description" content="CLOUDD — a European house and Afro house rave in Lagos. Wed 16 December 2026, Amah Studio. Tickets on sale now.">
 <meta property="og:title" content="CLOUDD — Get on the list">
-<meta property="og:description" content="A European house and Afro house rave in Lagos. Join the cloud list to hear first when tickets go live.">
+<meta property="og:description" content="A European house and Afro house rave in Lagos. Wed 16 December 2026, Amah Studio. Tickets on sale now.">
 <meta property="og:url" content="https://clouddsessions.com/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://clouddsessions.com/og-image.jpg">
@@ -557,6 +557,25 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
 .pop .done h3{margin:0;font-weight:900;font-variation-settings:"wdth" 125;text-transform:uppercase;font-size:clamp(24px,5vw,32px);line-height:1}
 .pop .done p{margin:0;font-size:14px;line-height:1.55;max-width:34ch;color:rgba(12,26,40,.8)}
 .pop .done-link{justify-self:center;margin-top:6px}
+
+/* ===== tickets ===== */
+.cta-row{flex-direction:column;align-items:center;gap:14px}
+.alt-link{color:var(--raised);text-decoration:none;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  border-bottom:1px solid rgba(242,248,253,.5);padding-bottom:3px}
+.alt-link:hover{border-bottom-color:var(--raised)}
+.alt-link:focus-visible{outline:2px solid var(--raised);outline-offset:4px}
+.tk{display:grid;gap:12px}
+.tk-when{display:grid;gap:5px;margin:0 0 4px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--sky-deep)}
+.tier{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:baseline;padding:16px 18px;border-radius:14px;
+  background:#fff;color:var(--ink);text-decoration:none;box-shadow:inset 0 0 0 1px rgba(12,26,40,.16),0 6px 16px rgba(8,30,60,.08);
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s}
+.tier:hover{transform:translateY(-2px);box-shadow:inset 0 0 0 1px rgba(27,75,143,.4),0 10px 22px rgba(8,30,60,.14)}
+.tier:focus-visible{outline:2px solid var(--sky-deep);outline-offset:3px}
+.tier .t-name{font-weight:800;font-variation-settings:"wdth" 120;text-transform:uppercase;letter-spacing:.06em;font-size:15px}
+.tier .t-price{font-family:var(--f-mono);font-weight:500;font-size:15px;color:var(--sky-deep)}
+.tier .t-note{grid-column:1 / -1;font-size:12.5px;line-height:1.5;color:rgba(12,26,40,.72)}
+.tk .submit-row{margin-top:4px}
+.tk-note{margin:0;text-align:center;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(12,26,40,.6)}
 @media (prefers-reduced-motion:reduce){.pop{transition:none;transform:none}}
 
 
@@ -648,7 +667,7 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
     <div class="a"><span>CLOUDD</span><span>House rave</span></div>
     <div class="b"><span>Lagos</span><span>6°27′N 3°24′E</span></div>
     <div class="c"><span>Detty December</span><span>2026</span></div>
-    <div class="d"><span><a href="#list">List open</a></span><span>Insiders hear first</span></div>
+    <div class="d"><span><a href="#tickets">Tickets on sale</a></span><span>Amah Studio, Lagos</span></div>
   </header>
 
   <main>
@@ -668,14 +687,15 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
 
       <div class="facts emboss">
         <div class="l">EUROPEAN HOUSE + AFRO HOUSE RAVE</div>
-        <div class="l" id="f-date">DECEMBER 2026</div>
-        <div class="l" id="f-time">9PM — LATE</div>
-        <div class="s" id="f-place">location drops to the list</div>
+        <div class="l" id="f-date">WED 16 DECEMBER 2026</div>
+        <div class="l" id="f-time">9PM — 5AM</div>
+        <div class="s" id="f-place">amah studio, lagos</div>
         <div class="stars">DJS<b>★</b>LIGHTS<b>★</b>ALL NIGHT</div>
       </div>
 
       <div class="cta-row">
-        <a class="press" href="#list">JOIN THE CLOUD LIST <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="press" href="#tickets">GET TICKETS <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="alt-link mono emboss" href="#list">or join the cloud list for updates</a>
       </div>
     </div>
 
@@ -698,18 +718,18 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
         <div class="steps emboss">
           <article class="step">
             <div class="n">01</div>
-            <h4>Join the cloud list</h4>
-            <p>Tap "Join the cloud list" and leave your email and WhatsApp. It's free and takes ten seconds.</p>
+            <h4>Get your ticket</h4>
+            <p>Tap "Get tickets". Tickets start from ₦18,000 and checkout is on Tix Africa.</p>
           </article>
           <article class="step">
             <div class="n">02</div>
-            <h4>Hear first</h4>
-            <p>When registration and tickets go live, the list gets the link before the public does.</p>
+            <h4>Join the cloud list</h4>
+            <p>Leave your email and WhatsApp. Set times and day-of updates go to the list first.</p>
           </article>
           <article class="step">
             <div class="n">03</div>
             <h4>Pull up</h4>
-            <p id="step3">Buy your ticket, get the location pin, and bring your ticket to the gate. Doors at 9pm.</p>
+            <p id="step3">Wednesday 16 December at Amah Studio, Lagos. Bring your ticket to the gate. Doors at 9pm.</p>
           </article>
         </div>
       </div>
@@ -728,7 +748,7 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
       <div class="grid">
         <div class="rule mono emboss"><span>Join the cloud</span><span>From now until the day</span></div>
         <div class="join-head emboss"><h2 id="join-h">Stay in the<br>cloud.</h2></div>
-        <p class="join-side emboss">The location pin, set times and the first word on tickets go out here before anywhere else.</p>
+        <p class="join-side emboss">Set times, day-of updates and what comes next go out here before anywhere else.</p>
         <div class="channels">
           <a class="chan" id="ch-wa" href="#join" target="_blank" rel="noopener">
             <span class="media"><img src="img/macro-c.jpg" alt="" loading="lazy" width="900" height="600"><span class="pill"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.5 2.5 0 0 0 1.7-1.2 2 2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3Z"/></svg>WhatsApp community</span></span>
@@ -760,8 +780,8 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
   </main>
 
   <nav class="dock" id="dock" aria-label="Quick actions">
-    <a class="wa" id="dock-wa" href="#join"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.5 2.5 0 0 0 1.7-1.2 2 2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3Z"/></svg>WHATSAPP</a>
-    <a class="go" href="#list">JOIN LIST <span aria-hidden="true">→</span></a>
+    <a class="wa" id="dock-list" href="#list">JOIN LIST</a>
+    <a class="go" href="#tickets">TICKETS <span aria-hidden="true">→</span></a>
   </nav>
 
   <div class="sheet" id="list" hidden role="dialog" aria-modal="true" aria-labelledby="rsvp-h">
@@ -772,7 +792,7 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
       <form id="rsvp-form" novalidate>
         <span class="mono tagline">Cloud access</span>
         <h2 id="rsvp-h"><span>Join the cloud list</span></h2>
-        <p class="lede">Tickets aren't on sale yet. Leave your email and WhatsApp and you'll hear first when they go live.</p>
+        <p class="lede">Tickets are on sale now. Join the list too and you'll get set times and day-of updates first.</p>
         <div class="field">
           <label class="vh" for="f-name">Full name</label>
           <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Full name" required>
@@ -799,7 +819,7 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
         <div class="hp" aria-hidden="true"><label for="f-company">Company</label><input id="f-company" name="company" tabindex="-1" autocomplete="off"></div>
         <label class="consent" for="f-consent">
           <input id="f-consent" name="consent" type="checkbox" required>
-          <span>Email and WhatsApp me when tickets go live, plus party updates.</span>
+          <span>Email and WhatsApp me set times, day-of updates and party news.</span>
         </label>
         <div class="err" id="e-consent"></div>
         <div class="submit-row">
@@ -813,8 +833,30 @@ footer{padding-block:clamp(40px,8vh,80px) calc(24px + env(safe-area-inset-bottom
         <div class="done-card" id="my-card"></div>
         <span class="mono tagline">CLOUDD · Vol. 001</span>
         <h3 id="p-head">You're on the cloud list.</h3>
-        <p id="p-copy">We'll email and WhatsApp you first when registration and tickets go live.</p>
+        <p id="p-copy">We'll email and WhatsApp you set times and day-of updates. Got your ticket yet?</p>
         <a class="mono done-link photos-only" href="#wall">See the cloud wall →</a>
+        <a class="mono done-link" href="#tickets">Get tickets →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet" id="tickets" hidden role="dialog" aria-modal="true" aria-labelledby="tk-h">
+    <div class="pop tk-pop" id="tk-pop">
+      <div class="puffs" id="tk-puffs" aria-hidden="true"></div>
+      <button class="sheet-x" id="tk-x" type="button" aria-label="Close">×</button>
+      <div class="tk">
+        <span class="mono tagline">Tickets · Vol. 001</span>
+        <h2 id="tk-h"><span>Into the blue</span></h2>
+        <p class="tk-when mono"><span id="tk-date"></span><span id="tk-time"></span><span id="tk-place"></span></p>
+        <a class="tier" id="tk-card" href="#" target="_blank" rel="noopener">
+          <span class="t-name">Tickets</span>
+          <span class="t-price" id="tk-from"></span>
+          <span class="t-note">Early Bird while it lasts.</span>
+        </a>
+        <div class="submit-row">
+          <a class="press" id="tk-go" href="#" target="_blank" rel="noopener">GET TICKETS <span aria-hidden="true">→</span></a>
+        </div>
+        <p class="tk-note mono">Secure checkout on Tix Africa · opens in a new tab</p>
       </div>
     </div>
   </div>
@@ -845,10 +887,13 @@ const CONFIG = {
   instagramHandle: "@clouddsessions",
   whatsappCommunity: "",    // e.g. "https://chat.whatsapp.com/XXXX"
   playlist: "",             // Spotify or Apple Music link
-  eventDate: "2026-12-27T21:00:00+01:00",  // placeholder — first edition start, Lagos time
-  date: "DECEMBER 2026",    // e.g. "SAT 27 DECEMBER 2026"
-  time: "9PM — LATE",
-  place: "location drops to the list"
+  eventDate: "2026-12-16T21:00:00+01:00",  // first edition start, Lagos time
+  date: "WED 16 DECEMBER 2026",
+  time: "9PM — 5AM",
+  place: "amah studio, lagos",
+  /* tickets: checkout happens on Tix Africa (it can't be embedded in another site) */
+  ticketUrl: "https://tix.africa/discover/cloudd-sessions/checkout?step=tickets",
+  ticketsFrom: "₦18,000"    // lowest price on sale; update when Early Bird sells out
 };
 
 /* photo wall switch */
@@ -866,7 +911,6 @@ document.getElementById("ch-ig-h").textContent = CONFIG.instagramHandle;
     if (url) { el.href = url; }
     else { el.classList.add("soon"); el.removeAttribute("target"); el.querySelector(".cta").innerHTML = soon; }
   });
-if (CONFIG.whatsappCommunity){ const d = document.getElementById("dock-wa"); d.href = CONFIG.whatsappCommunity; d.target = "_blank"; d.rel = "noopener"; }
 
 /* dock appears once the hero button scrolls away, hides while the form is on screen */
 (function dock(){
@@ -883,7 +927,7 @@ if (CONFIG.whatsappCommunity){ const d = document.getElementById("dock-wa"); d.h
   document.querySelectorAll("a.press, button.press").forEach((b, i) => {
     const lbl = document.createElement("span"); lbl.className = "lbl";
     while (b.firstChild) lbl.appendChild(b.firstChild);
-    b.classList.add("cloud"); if (b.id === "submit") b.classList.add("sm");
+    b.classList.add("cloud"); if (b.id === "submit" || b.id === "tk-go") b.classList.add("sm");
     b.innerHTML = `<svg class="cloud-bg" viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true">
       <defs><linearGradient id="cg${i}" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="120">
         <stop offset="0" stop-color="#ffffff"/><stop offset=".3" stop-color="#f1f6fa"/><stop offset=".56" stop-color="#cfdde8"/><stop offset=".8" stop-color="#8fb6d6"/><stop offset="1" stop-color="#e4eef6"/>
@@ -1153,8 +1197,11 @@ document.querySelector(".done-link").addEventListener("click", closeSheet);
 if (CONFIG.whatsappCommunity){ const w = document.getElementById("pop-wa"); w.href = CONFIG.whatsappCommunity; w.hidden = false; }
 
 /* cloudy edge: soft puffs around the popup, redrawn whenever it changes size */
-const pop = document.getElementById("pop"), puffs = document.getElementById("puffs");
-function drawPuffs(){
+function cloudEdge(pop, puffs){
+  const draw = () => drawPuffs(pop, puffs);
+  new ResizeObserver(draw).observe(pop);
+}
+function drawPuffs(pop, puffs){
   const w = pop.offsetWidth, h = pop.offsetHeight; if (!w || !h) return;
   const small = innerWidth < 520, base = small ? 58 : 92, vary = small ? 22 : 40, inset = small ? 16 : 26, step = small ? 44 : 62;
   let out = "<b></b>", n = 0;
@@ -1163,7 +1210,37 @@ function drawPuffs(){
   for (let y = inset + step; y < h - inset; y += step){ dot(inset, y); dot(w - inset, y); }
   puffs.innerHTML = out;
 }
-new ResizeObserver(drawPuffs).observe(pop);
+cloudEdge(document.getElementById("pop"), document.getElementById("puffs"));
+cloudEdge(document.getElementById("tk-pop"), document.getElementById("tk-puffs"));
+
+/* tickets: a CLOUDD pop-up with the details; checkout itself happens on Tix Africa */
+const tkSheet = document.getElementById("tickets");
+let tkLast = null, tkTimer = 0;
+document.getElementById("tk-date").textContent = CONFIG.date;
+document.getElementById("tk-time").textContent = CONFIG.time;
+document.getElementById("tk-place").textContent = CONFIG.place;
+document.getElementById("tk-from").textContent = `From ${CONFIG.ticketsFrom}`;
+document.getElementById("tk-card").href = CONFIG.ticketUrl;
+document.getElementById("tk-go").href = CONFIG.ticketUrl;
+function openTickets(ev){
+  clearTimeout(tkTimer); tkLast = document.activeElement;
+  tkSheet.hidden = false; document.documentElement.style.overflow = "hidden";
+  requestAnimationFrame(() => tkSheet.classList.add("on"));
+  if (ev && ev.clientX) addRipple(ev.clientX, ev.clientY);
+  setTimeout(() => document.getElementById("tk-go").focus({ preventScroll: true }), 60);
+}
+function closeTickets(){
+  tkSheet.classList.remove("on"); document.documentElement.style.overflow = "";
+  tkTimer = setTimeout(() => { tkSheet.hidden = true; }, 320);
+  if (tkLast && tkLast.focus) tkLast.focus({ preventScroll: true });
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest('a[href="#tickets"]');
+  if (a){ e.preventDefault(); if (!sheet.hidden) closeSheet(); openTickets(e); }
+});
+tkSheet.addEventListener("click", e => { if (e.target === tkSheet) closeTickets(); });
+document.getElementById("tk-x").addEventListener("click", closeTickets);
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !tkSheet.hidden) closeTickets(); });
 
 /* photo: crop to the card's 4:5 window and shrink before it goes anywhere */
 let photoData = null;
@@ -1211,7 +1288,7 @@ function validate(data){
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email.trim())){ setErr("e-email","f-email","Enter an email like you@email.com."); ok = false; }
   const digits = data.whatsapp.replace(/\D/g, "");
   if (digits.length < 10 || digits.length > 15){ setErr("e-wa","f-wa","Enter a WhatsApp number, e.g. 0803 123 4567."); ok = false; }
-  if (!data.consent){ setErr("e-consent", null, "Tick the box so we can tell you when tickets go live."); ok = false; }
+  if (!data.consent){ setErr("e-consent", null, "Tick the box so we can send you updates."); ok = false; }
   return ok;
 }
 
@@ -1268,7 +1345,7 @@ form.addEventListener("submit", async (e) => {
     document.getElementById("my-card").innerHTML = cardHTML(entry);
     if (out.duplicate){
       document.getElementById("p-head").textContent = "You're already on the cloud list.";
-      document.getElementById("p-copy").textContent = "This email is already on the list. We'll email and WhatsApp you first when tickets go live.";
+      document.getElementById("p-copy").textContent = "This email is already on the list. We'll email and WhatsApp you set times and day-of updates.";
     } else if (photoData && CONFIG.photos){ addToWall(entry); }
     form.hidden = true; pass.hidden = false; pass.classList.add("reveal"); pass.focus({ preventScroll:true });
     const pr = pass.getBoundingClientRect();
