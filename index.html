@@ -161,7 +161,10 @@ body{
 .trl-dl div{background:rgba(5,11,22,.72);padding:14px 16px}
 .trl-dl dt{font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#8fa6bd;margin-bottom:6px}
 .trl-dl dd{margin:0;font-family:var(--f-display);font-variation-settings:"wdth" 110;font-weight:700;font-size:15px;color:var(--raised)}
+.trl-cta{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(26px,3.4vw,36px);margin-top:clamp(6px,1.2vw,14px)}
+.trl-cta .alt-link{margin-left:6px}
 @media (max-width:760px){.trl{grid-template-columns:1fr;padding:10px;gap:22px}.trl-v{width:100%}
+  .trl-cta{width:100%;align-items:center}.trl-cta .alt-link{margin-left:0}
   .trl-copy{padding:0 8px 14px}.trl-copy .press{width:100%;justify-content:center;box-sizing:border-box}}
 
 .press{
@@ -936,10 +939,6 @@ body{overflow-x:clip}
         <div class="stars">DJS<b>★</b>LIGHTS<b>★</b>ALL NIGHT</div>
       </div>
 
-      <div class="cta-row">
-        <a class="press" href="#tickets">GET TICKETS <span class="arrow" aria-hidden="true">→</span></a>
-        <a class="alt-link mono emboss" href="#list">or join the cloud list for updates</a>
-      </div>
     </div>
 
     <section style="padding-block:0 clamp(40px,8vh,88px)">
@@ -955,7 +954,10 @@ body{overflow-x:clip}
             <p class="trl-k">Official trailer · 0:14</p>
             <h2 class="itb"><img src="into-the-blue.webp" alt="Into the Blue" width="858" height="191"><span class="wide">Cloudd · vol. 001</span></h2>
             <dl class="trl-dl"><div><dt>Date</dt><dd>Wed 16 Dec 2026</dd></div><div><dt>Hours</dt><dd>9PM — 5AM</dd></div><div><dt>Where</dt><dd>Amah Studio, Lagos</dd></div><div><dt>Sound</dt><dd>Afro + European house</dd></div></dl>
-            <a class="press" href="#tickets">GET TICKETS <span class="arrow" aria-hidden="true">→</span></a>
+            <div class="trl-cta">
+              <a class="press" href="#tickets">GET TICKETS <span class="arrow" aria-hidden="true">→</span></a>
+              <a class="alt-link mono emboss" href="#list">or join the cloud list for updates</a>
+            </div>
           </div>
         </div>
       </div>
@@ -1250,10 +1252,11 @@ document.getElementById("ch-ig-h").textContent = CONFIG.instagramHandle;
 
 /* dock appears once the hero button scrolls away, hides while the form is on screen */
 (function dock(){
-  const d = document.getElementById("dock"), cta = document.querySelector(".cta-row"), rsvp = document.getElementById("list");
-  let pastHero = false, atForm = false;
-  const set = () => d.classList.toggle("on", pastHero && !atForm);
+  const d = document.getElementById("dock"), cta = document.querySelector(".facts"), rsvp = document.getElementById("list"), tcta = document.querySelector(".trl-cta");
+  let pastHero = false, atForm = false, atTrl = false;
+  const set = () => d.classList.toggle("on", pastHero && !atForm && !atTrl);
   new IntersectionObserver(([e]) => { pastHero = !e.isIntersecting && e.boundingClientRect.top < 0; set(); }).observe(cta);
+  if (tcta) new IntersectionObserver(([e]) => { atTrl = e.isIntersecting; set(); }).observe(tcta);
   new IntersectionObserver(([e]) => { atForm = e.isIntersecting; set(); }, { threshold: .25 }).observe(rsvp);
 })();
 
@@ -1721,21 +1724,16 @@ document.querySelectorAll(".flaps").forEach(function(el){var txt=el.dataset.text
 <script>
 (function(){var v=document.getElementById("trl-vid"),b=document.getElementById("trl-snd"),box=document.getElementById("trl");if(!v)return;
 /* fast start: fetch the trailer as soon as the page has settled (not on slow / data-saver connections), or when it nears the screen */
-var started=false,snd=null,on=false;
+var started=false;
 function start(){if(started)return;started=true;v.querySelectorAll("source").forEach(function(s){s.src=s.dataset.src});v.load();v.play().catch(function(){})}
 var c=navigator.connection||{},slow=!!c.saveData||/(^|-)2g$/.test(c.effectiveType||"");
 var near=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){start();near.disconnect()}})},{rootMargin:"600px"});near.observe(box);
 if(!slow){var go=function(){"requestIdleCallback" in window?requestIdleCallback(start,{timeout:2500}):setTimeout(start,1200)};document.readyState==="complete"?go():addEventListener("load",go)}
 /* pause while off screen */
 new IntersectionObserver(function(es){es.forEach(function(e){if(!started)return;if(e.isIntersecting)v.play().catch(function(){});else v.pause()})}).observe(box);
-/* sound lives in its own small file, fetched only when someone taps for it */
-function sync(){if(!snd)return;try{if(Math.abs(snd.currentTime-v.currentTime)>.2)snd.currentTime=v.currentTime}catch(e){}}
-v.addEventListener("play",function(){if(on&&snd){sync();snd.play().catch(function(){})}});
-v.addEventListener("pause",function(){if(snd)snd.pause()});
-v.addEventListener("timeupdate",function(){if(on)sync()});
-b.addEventListener("click",function(){on=!on;start();
-  if(on){if(!snd){snd=new Audio("trailer-sound.m4a");snd.loop=true}sync();snd.play().catch(function(){});if(v.paused)v.play().catch(function(){})}
-  else if(snd)snd.pause();
+/* sound is the original soundtrack inside the video: the button just unmutes it, so it can never drift or stutter */
+var on=false;
+b.addEventListener("click",function(){on=!on;start();v.muted=!on;if(on&&v.paused)v.play().catch(function(){});
   b.setAttribute("aria-pressed",on);b.textContent=on?"♪ Sound on":"♪ Tap for sound"});
 })();
 </script>
