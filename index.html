@@ -858,6 +858,24 @@ body{overflow-x:clip}
   .faq-box details{padding:16px 0}
   .faq-box details p{margin:10px 0 0;font-size:14px}
 }
+
+/* ---------- flip countdown ---------- */
+.count{display:grid !important;justify-items:center;gap:12px}
+.count .cd-lbl{font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--raised);opacity:.85}
+.count .cd-lbl b{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--sky);margin-right:9px;vertical-align:1px;animation:blink 1.2s steps(2) infinite}
+.count > .cd-row{display:flex;align-items:flex-start;gap:clamp(8px,1.6vw,18px);padding:clamp(10px,1.4vw,16px);border-radius:18px;background:rgba(5,11,22,.72);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 20px 50px rgba(2,8,18,.45);border:1px solid rgba(79,179,255,.2)}
+.cd-g{display:grid;justify-items:center;gap:7px}
+.cd-g .tl{display:flex;gap:4px}
+.cd-g .tl span{position:relative;display:grid;place-items:center;width:clamp(30px,3.4vw,50px);height:clamp(42px,4.8vw,68px);border-radius:7px;
+  background:linear-gradient(180deg,#1a2740 0 49%,#0e182b 51% 100%);color:#f6fbff;font-family:var(--f-mono);font-weight:500;font-size:clamp(22px,2.6vw,38px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 2px 4px rgba(0,0,0,.5);perspective:200px}
+.cd-g .tl span::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.7)}
+.cd-g .tl span.tick{animation:flip .22s ease-in}
+.cd-g small{font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;color:#8fa6bd;text-transform:uppercase}
+.cd-g.s .tl span{color:var(--sky)}
+.cd-colon{font-family:var(--f-mono);font-size:clamp(20px,2.4vw,34px);color:#5f7790;line-height:clamp(42px,4.8vw,68px)}
+@media (max-width:520px){.cd-colon{display:none}.cd-row{gap:8px;padding:10px}.cd-g .tl span{width:29px;height:42px;font-size:22px}.cd-g .tl{gap:3px}}
 @media (prefers-reduced-motion:reduce){.tape .run,.dj::before,.paper::before,.alt i{animation:none}}
 </style>
 
@@ -886,11 +904,9 @@ body{overflow-x:clip}
 
       <div class="edition"><span class="chip">VOL. 001</span><span class="mono emboss">The first edition</span></div>
 
-      <div class="count emboss" id="count" aria-label="Countdown to doors">
-        <div><b id="cd-d">21</b><span class="mono">Days</span></div><span class="sep">:</span>
-        <div><b id="cd-h">00</b><span class="mono">Hrs</span></div><span class="sep">:</span>
-        <div><b id="cd-m">00</b><span class="mono">Min</span></div><span class="sep">:</span>
-        <div><b id="cd-s">00</b><span class="mono">Sec</span></div>
+      <div class="count" id="count" role="timer" aria-label="Countdown to doors">
+        <span class="cd-lbl"><b></b>Doors open in</span>
+        <div class="cd-row"><div class="cd-g"><div class="tl" id="cd-d"><span>0</span><span>0</span></div><small>Days</small></div><span class="cd-colon">:</span><div class="cd-g"><div class="tl" id="cd-h"><span>0</span><span>0</span></div><small>Hrs</small></div><span class="cd-colon">:</span><div class="cd-g"><div class="tl" id="cd-m"><span>0</span><span>0</span></div><small>Min</small></div><span class="cd-colon">:</span><div class="cd-g s"><div class="tl" id="cd-s"><span>0</span><span>0</span></div><small>Sec</small></div></div>
       </div>
 
       <div class="card-line tagline emboss"><hr aria-hidden="true"><p id="tagline" aria-label="No noise in the clouds">NO NOISE IN THE CLOUDS</p><hr aria-hidden="true"></div>
@@ -1677,10 +1693,11 @@ form.addEventListener("submit", async (e) => {
 <script>
 (function(){var el=document.getElementById("count");if(!el)return;
 var t=new Date(typeof CONFIG!=="undefined"&&CONFIG.eventDate?CONFIG.eventDate:"2026-12-16T21:00:00+01:00").getTime();
-function p(n){return String(n).padStart(2,"0")}
+function set(k,v){var w=document.getElementById("cd-"+k),s=String(v).padStart(2,"0"),sp=w.children;
+  while(sp.length<s.length){w.insertBefore(document.createElement("span"),w.firstChild)}
+  for(var i=0;i<sp.length;i++){var c=s[i];if(sp[i].textContent!==c){sp[i].textContent=c;sp[i].classList.remove("tick");void sp[i].offsetWidth;sp[i].classList.add("tick")}}}
 function tick(){var s=Math.floor((t-Date.now())/1000);if(s<=0){el.hidden=true;return}
-document.getElementById("cd-d").textContent=Math.floor(s/86400);document.getElementById("cd-h").textContent=p(Math.floor(s%86400/3600));
-document.getElementById("cd-m").textContent=p(Math.floor(s%3600/60));document.getElementById("cd-s").textContent=p(s%60)}
+set("d",Math.floor(s/86400));set("h",Math.floor(s%86400/3600));set("m",Math.floor(s%3600/60));set("s",s%60)}
 tick();setInterval(tick,1000)})();
 </script>
 <script>
