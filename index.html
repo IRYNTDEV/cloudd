@@ -136,6 +136,34 @@ body{
 
 .cta-row{grid-column:1 / -1;display:flex;justify-content:center;margin-top:clamp(28px,5vh,56px)}
 
+
+/* ---------- trailer: Into the Blue ---------- */
+.trl{grid-column:1 / -1;display:grid;grid-template-columns:minmax(240px,380px) 1fr;gap:clamp(24px,4vw,64px);align-items:center;
+  padding:clamp(14px,1.6vw,20px);border-radius:22px;background:linear-gradient(160deg,rgba(27,75,143,.32),rgba(5,11,22,.7) 60%);
+  box-shadow:inset 0 0 0 1px rgba(79,179,255,.18),0 30px 70px rgba(2,8,18,.45)}
+.trl-v{position:relative;aspect-ratio:9/16;border-radius:14px;overflow:hidden;background:#050b16;box-shadow:0 18px 40px rgba(0,0,0,.5)}
+.trl-v video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.trl-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,#1b4b8f 0%,#4fb3ff 100%);mix-blend-mode:color;opacity:.55;transition:opacity .5s}
+.trl-rec{position:absolute;top:12px;left:12px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#f2f8fd;
+  padding:6px 10px;border-radius:999px;background:rgba(5,11,22,.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.trl-rec b{display:inline-block;width:6px;height:6px;border-radius:50%;background:#ff4d5e;margin-right:8px;vertical-align:1px;animation:blink 1.2s steps(2) infinite}
+.trl-snd{position:absolute;right:12px;bottom:12px;border:0;cursor:pointer;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--night);background:#f2f8fd;padding:9px 13px;border-radius:999px;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+.trl-snd[aria-pressed="true"]{background:var(--sky);color:#04101f}
+.trl-copy{display:grid;gap:clamp(18px,2.4vw,28px);justify-items:start;padding-block:12px}
+.trl-k{margin:0;font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--sky)}
+.trl-copy h2{margin:0;font-size:clamp(64px,9vw,150px);color:var(--raised);text-shadow:var(--emboss)}
+.trl-copy h2 .wide{font-size:clamp(13px,1.3vw,18px);margin-top:14px}
+.trl-copy h2.itb{display:grid;justify-items:start;gap:18px;width:100%;text-shadow:none}
+.itb img{display:block;width:min(100%,600px);height:auto;filter:drop-shadow(0 2px 1px rgba(0,0,0,.5)) drop-shadow(0 22px 22px rgba(2,8,18,.55))}
+.itb .wide{margin:0 !important}
+.trl-dl{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;width:100%;max-width:520px;border-radius:14px;overflow:hidden;background:rgba(242,248,253,.12)}
+.trl-dl div{background:rgba(5,11,22,.72);padding:14px 16px}
+.trl-dl dt{font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#8fa6bd;margin-bottom:6px}
+.trl-dl dd{margin:0;font-family:var(--f-display);font-variation-settings:"wdth" 110;font-weight:700;font-size:15px;color:var(--raised)}
+@media (max-width:760px){.trl{grid-template-columns:1fr;padding:10px;gap:22px}.trl-v{width:100%}
+  .trl-copy{padding:0 8px 14px}.trl-copy .press{width:100%;justify-content:center;box-sizing:border-box}}
+
 /* ---------- teaser banner ---------- */
 .teaser-banner{grid-column:1 / -1;position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/9;
   box-shadow:inset 0 0 0 1px rgba(242,248,253,.14);background:#0b1a30}
@@ -927,13 +955,19 @@ body{overflow-x:clip}
 
     <section style="padding-block:0 clamp(40px,8vh,88px)">
       <div class="grid">
-        <div class="teaser-banner" id="teaser-banner">
-          <video id="teaser-vid" muted loop playsinline preload="none" poster="teaser-poster.jpg">
-            <source data-src="teaser.webm" type="video/webm">
-            <source data-src="teaser.mp4" type="video/mp4">
-          </video>
-          <div class="teaser-fade"></div>
-          <p class="teaser-cap mono emboss">Teaser: The Intro</p>
+        <div class="trl" id="trl">
+          <div class="trl-v">
+            <video id="trl-vid" muted loop playsinline preload="none" poster="trailer-poster.jpg"><source data-src="trailer.mp4" type="video/mp4"></video>
+            <span class="trl-tint" aria-hidden="true"></span>
+            <span class="trl-rec"><b></b>Vol. 001 · Trailer</span>
+            <button class="trl-snd" id="trl-snd" type="button" aria-pressed="false">♪ Tap for sound</button>
+          </div>
+          <div class="trl-copy">
+            <p class="trl-k">Official trailer · 0:14</p>
+            <h2 class="itb"><img src="into-the-blue.webp" alt="Into the Blue" width="858" height="191"><span class="wide">Cloudd · vol. 001</span></h2>
+            <dl class="trl-dl"><div><dt>Date</dt><dd>Wed 16 Dec 2026</dd></div><div><dt>Hours</dt><dd>9PM — 5AM</dd></div><div><dt>Where</dt><dd>Amah Studio, Lagos</dd></div><div><dt>Sound</dt><dd>Afro + European house</dd></div></dl>
+            <a class="press" href="#tickets">GET TICKETS <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
         </div>
       </div>
     </section>
@@ -1711,6 +1745,12 @@ document.querySelectorAll(".flaps").forEach(function(el){var txt=el.dataset.text
       p[0].textContent=k>=n?p[1]:rnd();if(k++<n)setTimeout(step,70)})()})}
   if(rm)return;var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){settle();io.disconnect();
     if(el.dataset.mystery!==undefined)setInterval(settle,4200+Math.random()*1500)}},{threshold:.4});io.observe(el)});
+})();
+</script>
+<script>
+(function(){var v=document.getElementById("trl-vid"),b=document.getElementById("trl-snd"),box=document.getElementById("trl");
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;v.querySelectorAll("source").forEach(function(s){s.src=s.dataset.src});v.load();v.play().catch(function(){});io.disconnect()})},{rootMargin:"200px"});io.observe(box);
+b.addEventListener("click",function(){v.muted=!v.muted;if(v.paused)v.play().catch(function(){});b.setAttribute("aria-pressed",!v.muted);b.textContent=v.muted?"♪ Tap for sound":"♪ Sound on"});
 })();
 </script>
 </body></html>
