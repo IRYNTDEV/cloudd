@@ -13,7 +13,7 @@ const CONFIG = {
   eventDate: "2026-12-16T21:00:00+01:00",  // first edition start, Lagos time
   date: "WED 16 DECEMBER 2026",
   time: "9PM — 5AM",
-  place: "amah studio, lagos",
+  place: "amah studios, lagos",
   /* tickets: checkout happens on Tix Africa (it can't be embedded in another site) */
   ticketUrl: "https://tix.africa/discover/cloudd-sessions/checkout?step=tickets",
   ticketsFrom: "₦18,000"    // lowest price on sale; update when Early Bird sells out
